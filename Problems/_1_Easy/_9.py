@@ -1,10 +1,25 @@
 from typing import List
 class Solution:
     def isPalindrome(self, x: int) -> bool:
-        # NO STRING
+        """STRING"""
+        if x == 0:
+            print(True)
+            return True
         max = pow(2,31)
-        if x < 0 or max < x or x < (-1 * max) : return False
-        elif x == 0 : return True
+        if x < 0 or max < x or x < (-1 * max) : 
+            print(False)
+            return False
+        print(list(str(x)) == list(reversed(str(x))))     
+        return list(str(x)) == list(reversed(str(x)))
+       
+        """ NO STRING
+        max = pow(2,31)
+        if x < 0 or max < x or x < (-1 * max) : 
+            print(False)
+            return False
+        elif x == 0 : 
+            print(True)
+            return True
         stamp = 10
         l, rl =[], []
         quotient, remain = x, x
@@ -14,7 +29,9 @@ class Solution:
             quotient = quotient // stamp
             l.append(remain)
             rl.insert(0,remain)
+        print(l == rl)
         return l == rl
+        """
 """
 datetime : 09/06/2020 15:47
 Follow up: Could you solve it without converting the integer to a string?
