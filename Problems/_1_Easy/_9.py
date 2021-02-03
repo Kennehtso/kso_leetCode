@@ -1,16 +1,8 @@
 from typing import List
 class Solution:
     def isPalindrome(self, x: int) -> bool:
-        """STRING"""
-        if x == 0:
-            print(True)
-            return True
         max = pow(2,31)
-        if x < 0 or max < x or x < (-1 * max) : 
-            print(False)
-            return False
-        print(list(str(x)) == list(reversed(str(x))))     
-        return list(str(x)) == list(reversed(str(x)))
+        return False if x < 0 or max-1 < x or x < (-1 * max) else x == int(str(x)[::-1])
        
         """ NO STRING
         max = pow(2,31)
