@@ -17,23 +17,17 @@ class Solution:
         return r
     
     def rev_maxProfit(self, prices: List[int]) -> int:
+        maxV, p_SM = 0, prices[0]
         if len(prices) == 1 :
-            return 0
-
-        smallestSoFar = prices[0]
-        maxValue = prices[1] - prices[0]
-        for idx in range(1,len(prices)):
-            if idx == len(prices)-1:
-                break
-            cur = prices[idx]
-            smallestSoFar = min(smallestSoFar, cur)
-            nxt = prices[idx+1]
-
-            substract = nxt - smallestSoFar
-            if substract > maxValue:
-                maxValue = substract 
-        return maxValue if maxValue > 0 else 0
-        return maxValue
+            return maxV
+        for p in prices:
+            p_Cur = p
+            pft_Cur = p_Cur - p_SM
+            if  maxV < pft_Cur :
+                maxV = pft_Cur
+            if  p_SM > p_Cur :
+                p_SM = p_Cur
+        return maxV
 slt = Solution()    
 # Test Case
 slt.maxProfit([7,1,5,3,6,4])
