@@ -1,6 +1,6 @@
 from typing import List
 class Solution:
-     def romanToInt(self, input_roman: str) -> int:
+    def romanToInt(self, input_roman: str) -> int:
         values = {
             "I": 1,
             "V": 5,
@@ -26,6 +26,28 @@ class Solution:
                 total = total + current_value
                 position = position + 1
         return total
+
+    def rev_romanToInt(self, input_roman: str) -> int:
+        values = {
+            "I": 1,
+            "V": 5,
+            "X": 10,
+            "L": 50,
+            "C": 100,
+            "D": 500,
+            "M": 1000,
+        }
+        r = pre = values[input_roman[-1]]
+        for idx in range(len(input_roman)-2,-1, -1) :
+            cur = values[input_roman[idx]]
+            r = r + (cur if cur >= pre else cur * -1 )
+            pre = cur
+        print(r)
+        return r
+
+slt = Solution()
+slt.rev_romanToInt("MMCMLXXIX")
+
 """
 Roman numerals are represented by seven different symbols: I, V, X, L, C, D and M.
 Symbol       Value
