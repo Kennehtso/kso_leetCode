@@ -13,11 +13,32 @@ class Solution:
                 maxList[v_max] = v_max
             #arr = list(map(lambda x: x - cur, prices[idx+1 : len(prices)-1]))
         r = max(maxList, key=maxList.get)
+        print(r)
         return r
-slt = Solution()
+    
+    def rev_maxProfit(self, prices: List[int]) -> int:
+        if len(prices) == 1 :
+            return 0
+
+        smallestSoFar = prices[0]
+        maxValue = prices[1] - prices[0]
+        for idx in range(1,len(prices)):
+            if idx == len(prices)-1:
+                break
+            cur = prices[idx]
+            smallestSoFar = min(smallestSoFar, cur)
+            nxt = prices[idx+1]
+
+            substract = nxt - smallestSoFar
+            if substract > maxValue:
+                maxValue = substract 
+        return maxValue if maxValue > 0 else 0
+        return maxValue
+slt = Solution()    
 # Test Case
-slt.maxProfit([7,2,9,1,5,6,4])
-slt.maxProfit([7,6,4,3,1])
+slt.maxProfit([7,1,5,3,6,4])
+#slt.rev_maxProfit([7,2,9,1,5,6,4])
+slt.rev_maxProfit([7,8,5,3,6,4])
 """
 121. Best Time to Buy and Sell Stock
 You are given an array prices where prices[i] is the price of a given stock on the i^th day.
