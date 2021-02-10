@@ -28,21 +28,13 @@ class Solution:
         return total
 
     def rev_romanToInt(self, input_roman: str) -> int:
-        values = {
-            "I": 1,
-            "V": 5,
-            "X": 10,
-            "L": 50,
-            "C": 100,
-            "D": 500,
-            "M": 1000,
-        }
-        r = pre = values[input_roman[-1]]
-        for idx in range(len(input_roman)-2,-1, -1) :
-            cur = values[input_roman[idx]]
-            r = r + (cur if cur >= pre else cur * -1 )
+        d = {"I":1,"V":5,"X":10,"L":50,"C":100,"D":500,"M":1000}
+        if len(s) == 1:return d[s]
+        r = pre = d[s[-1]]
+        for idx in range(len(s)-2,-1,-1):
+            cur = d[s[idx]]
+            r += cur * (1 if cur >= pre else -1) 
             pre = cur
-        print(r)
         return r
 
 slt = Solution()
