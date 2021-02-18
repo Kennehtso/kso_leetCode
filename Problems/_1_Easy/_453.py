@@ -1,6 +1,7 @@
 from typing import List
 class Solution:
     def minMoves(self, nums: List[int]) -> int:
+        
         count, rge = 0, len(nums)-1
         nums.sort()
         for idx in range(rge, 0, -1):
