@@ -12,7 +12,7 @@ class Solution:
         for i in range(1, n):
             cur = nums[i]
             roundTotal = curr_sum + cur
-             """
+            """
             nums = [-2,1,-3,4,-1,2,1,-5,4]
             Take 'cur' to compare with 'cur_sum' + 'cur'
             ex: 
