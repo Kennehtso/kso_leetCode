@@ -1,7 +1,6 @@
 from typing import List
 class Solution:
     def subdomainVisits(self, cpdomains: List[str]) -> List[str]:
-        #["900 google.mail.com", "50 yahoo.com", "1 intel.mail.com", "5 wiki.org"]
         d ={}
         for item in cpdomains:
             sep = item.split(" ")
@@ -12,11 +11,9 @@ class Solution:
                 if cur not in d:
                     d[cur] = total
                 else:
-                    d[cur]+=total
-
-        # d to list
-        print([str(c)+ " "+ s for s,c in d.items()])
-        return d
+                    d[cur] += total
+        #print([str(c)+ " "+ s for s,c in d.items()])
+        return [str(c)+ " "+ s for s,c in d.items()]
         
 slt = Solution()
 # Test Case
