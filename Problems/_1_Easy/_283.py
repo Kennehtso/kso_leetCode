@@ -4,15 +4,16 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
+        nums.sort(key=lambda e: e==0)
+        """
         c = nums.count(0)
         while c > 0:
             i = nums.index(0)
-            print(f"i: {i}")
             nums.pop(i)
             nums.append(0)
             c-=1
-        print(f"nums: {nums}")
-        #print(nums)
+        #print(f"nums: {nums}")
+        """
         
 slt = Solution()
 # Test Case
