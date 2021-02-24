@@ -7,12 +7,11 @@ class Solution:
             elif e%3==0: r.append("Fizz")
             elif e%5==0: r.append("Buzz")
             else: r.append(e)
-        print(r)
+        #print(r)
         return r
 slt = Solution()
 # Test Case
 slt.fizzBuzz(15)
-3 , 6, 9, 12, 15, 18, 21, 24, 27, 30
 """
 412. Fizz Buzz
 
