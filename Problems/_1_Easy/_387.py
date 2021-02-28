@@ -9,9 +9,7 @@ class Solution:
                 d[c] = i
         r = list(filter(lambda e: e>-1, d.values()))
         if len(r) > 0:
-            print(r[0])
             return r[0]
-        print(-1)
         return -1
         
             
