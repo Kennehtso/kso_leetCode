@@ -2,15 +2,14 @@ from typing import List
 class Solution:
     def runningSum(self, nums: List[int]) -> List[int]:
         t, r = 0, []
-        for idx, n in enumerate(nums):
-            print(nums[0:idx])
+        for n in nums:
             t += n
             r.append(t)
         print(r)
-        # return r
+        return r
 
-        a = [ sum(nums[0:idx+1]) for idx in range(0, len(nums)) ]
-        print(a)
+        # Following with Single-line but slow, due to sum need to caculate every time enter the loop. 
+        # return [sum(nums[0:idx+1]) for idx in range(0, len(nums))]
             
         
 slt = Solution()
