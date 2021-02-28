@@ -7,22 +7,22 @@ class TreeNode:
 
 class Solution:
     r = 0
-    def diameterOfBinaryTree(self, root: TreeNode, locateMsg: str) -> int:
+    def diameterOfBinaryTree(self, root: TreeNode) -> int:
         def gogo(root: TreeNode, locateMsg):
-            print(locateMsg+" **************")
+            #print(locateMsg+" **************")
             if root is None:
                 return 0
             left = gogo(root.left, f"Going Left of {root.val}")
-            print(f"left: {left}")
+            #print(f"left: {left}")
             right = gogo(root.right,  f"Going Right of {root.val}")
-            print(f"right: {right}")
+            #print(f"right: {right}")
             self.r = max(self.r,left+right+1)
-            print(f"max - self.r: {self.r}")
+            #print(f"max - self.r: {self.r}")
             return max(left, right) + 1
 
-        gogo(root,locateMsg)
-        print(f"self.r: {self.r-1}")
-        return self.r - 1
+        gogo(root,"ROOT")
+        #print(f"self.r: {self.r-1}")
+        return self.r - 1 if self.r > 0 else 0
 
 slt = Solution()
 # Test Case
