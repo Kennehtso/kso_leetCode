@@ -4,12 +4,10 @@ class Solution:
     def reverseString(self, s: List[str]) -> None:
         # Do not allocate extra space for another array, 
         # you must do this by modifying the input array in-place with O(1) extra memory.
-        l = len(s)
+        s.reverse()
+        """ l = len(s)
         for idx in range(0, l):
-            s.insert(idx,s.pop(l-1))
-            print(s)
-        print("Done")
-        print(s)
+            s.insert(idx,s.pop(l-1)) """
             
 slt = Solution()
 # Test Case
