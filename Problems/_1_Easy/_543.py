@@ -36,8 +36,7 @@ _3 = TreeNode(3,None,None)
 _2 = TreeNode(2,_4,_5)
 _root = TreeNode(1,_2,_3)
 
-slt.diameterOfBinaryTree(_root, "Root")
-
+slt.diameterOfBinaryTree(_root)
 
 """
 543. Diameter of Binary Tree
