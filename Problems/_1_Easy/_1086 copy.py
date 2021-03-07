@@ -1,6 +1,13 @@
 from typing import List
 class Solution:
     def removeDuplicates(self, S: str) -> str:
+        stk =[]
+        for s in S:
+            if stk and stk[-1] == s: stk.pop()
+            else: stk.append(s)
+        return "".join(stk)
+
+    """  iterative
         hasDuplcate = True
         while hasDuplcate:
             if len(S) == 0:
@@ -15,8 +22,11 @@ class Solution:
                     pre = ''
                 else:
                     pre = cur
-        return S
-    """ hasDuplcate, result = True, ""
+        return S 
+    """
+    """ 
+    # recursive
+    hasDuplcate, result = True, ""
     def removeDuplicates(self, S: str) -> str:
         if len(S) == 0:
             return S
