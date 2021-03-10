@@ -1,8 +1,7 @@
 from typing import List
 class Solution:
     def sortedSquares(self, nums: List[int]) -> List[int]:
-        
-        return []
+        return sorted(map(lambda x: pow(x,2), nums))
 
 slt = Solution()    
 # Test Case
