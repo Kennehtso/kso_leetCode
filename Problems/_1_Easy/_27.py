@@ -6,7 +6,7 @@ class Solution:
 
 slt = Solution()    
 # Test Case
-slt.removeElement([0,1,2,2,3,0,4,2])
+slt.removeElement([0,1,2,2,3,0,4,2], 2)
 """
 27. Remove Element
 Given an array nums and a value val, remove all instances of that value in-place and return the new length.
