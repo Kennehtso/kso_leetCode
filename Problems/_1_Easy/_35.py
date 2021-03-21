@@ -1,33 +1,40 @@
 from typing import List
 class Solution:
-    def strStr(self, haystack: str, needle: str) -> int:
-        try: return haystack.index(needle)
-        except: return -1
+    def searchInsert(self, nums: List[int], target: int) -> int:
+        if target in nums:
+            return nums.index(target)
+        for idx, num in enumerate(nums):
+            #print(f"{idx} of {num}")
+            if target > num:
+                continue
+            else:
+                return idx
+        return len(nums)
 
 slt = Solution()    
 # Test Case
-slt.strStr("aaaaa","bba")
+slt.searchInsert(nums = [1,3,5,6], target = 0)
 """
-28. Implement strStr()
+35. Search Insert Position
 
-Implement strStr().
-Return the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.
-Clarification:
-What should we return when needle is an empty string? This is a great question to ask during an interview.
-For the purpose of this problem, we will return 0 when needle is an empty string. This is consistent to C's strstr() and Java's indexOf().
-
- 
+Given a sorted array of distinct integers and a target value, return the index if the target is found. If not, 
+return the index where it would be if it were inserted in order.
 
 Example 1:
-    Input: haystack = "hello", needle = "ll"
+    Input: nums = [1,3,5,6], target = 5
     Output: 2
 
 Example 2:
-    Input: haystack = "aaaaa", needle = "bba"
-    Output: -1
+    Input: nums = [1,3,5,6], target = 2
+    Output: 1
 
-    Example 3:
-    Input: haystack = "", needle = ""
+Example 5:
+    Input: nums = [1], target = 0
     Output: 0
+
+Constraints:
+    1 <= nums.length <= 104
+    -104 <= nums[i] <= 104
+    nums contains distinct values sorted in ascending order.
 
 """
