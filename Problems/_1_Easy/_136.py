@@ -1,4 +1,5 @@
 from typing import List
+import collections
 class Solution:
     def singleNumber(self, nums: List[int]) -> int:
         c = Counter(nums)
