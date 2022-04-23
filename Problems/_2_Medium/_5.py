@@ -1,23 +1,27 @@
 from typing import List
 class Solution:
-    isDebug = True
-    def longestPalindrome(self, s: str):
-        lp=''
-        for i in range(len(s)):
-            for j in range(i, len(s)):
-                if j - i + 1 > len(lp) and self.isPalindrome_subString(s, i, j):
-                    lp = s[i:j+1]
-        print("Final lp: ", lp)
-        return lp
+    def getMaxLength(self, s, left, right) -> int:
+        while left >= 0 and right < len(s) and s[left] == s[right]:
+            left -= 1
+            right += 1
+        return right - left - 1
     
-    def isPalindrome_subString(self, s, l, r):
-        while l < r:
-            if s[l] != s[r]:
-                return False
-            l += 1
-            r -= 1
-        print("LP: ", s)
-        return True
+    def longestPalindrome(self, s: str) -> str:
+        if len(s) <= 1:
+            return s
+        start, end = 0, 0
+        for idx in range(len(s)):
+            len1 = self.getMaxLength(s, idx, idx)
+            len2 = self.getMaxLength(s, idx, idx + 1)
+            lenMax = max(len1, len2)
+            
+            if len(s[idx:]) * 2 <= lenMax: break
+                
+            if lenMax > (end - start):
+                start = idx - ((lenMax - 1) // 2)
+                end = idx + (lenMax // 2)
+            #print(s[idx])
+        return s[start: end + 1]
 
 
 slt = Solution()    
