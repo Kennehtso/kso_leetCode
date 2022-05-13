@@ -6,7 +6,7 @@ class TreeNode:
         self.right = right
 
 class Solution:
-    def zigzagLevelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+    def zigzagLevelOrder(self, root: TreeNode) -> List[List[int]]:
         r = []
         def bfs(root: TreeNode, level:int):
             if not root: return
