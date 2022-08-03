@@ -7,12 +7,12 @@ class TreeNode:
 
 class Solution:
     def invertTree(self, root: TreeNode) -> TreeNode: 
-        if root:
-            left_tmp = root.left
-            root.left = root.right
-            root.right = left_tmp
-            if root.left: self.invertTree(root.left)
-            if root.right: self.invertTree(root.right)   
+        # M L R 
+        if not root:
+            return
+        root.left, root.right = root.right, root.left
+        self.invertTree(root.left)
+        self.invertTree(root.right)
         return root
 
 slt = Solution()

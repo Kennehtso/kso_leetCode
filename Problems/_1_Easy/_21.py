@@ -7,39 +7,18 @@ class ListNode:
 
 class Solution:
      def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:
-        if l1 is None and l2 is None: return None
-        elif l1 is None and l2: return l2
-        elif l1 and l2 is None: return l1
-        work = result = ListNode(0)
-        cur_l1, cur_l2 = l1, l2
-        while cur_l1 or cur_l2  :
-            if cur_l1 is None:
-                work.next = cur_l2
-                cur_l2 = cur_l2.next
-                #print(f"cur_l1 is None:")
-            elif cur_l2 is None:
-                work.next = cur_l1
-                cur_l1 = cur_l1.next
-                #print(f"cur_l2 is None")
-                
-            elif cur_l1.val > cur_l2.val :
-                work.next = cur_l2
-                cur_l2 = cur_l2.next
-                #print(f"cur_l1.val > cur_l2.val")
-               
-            else: # cur_l1.val <= cur_l2.val
-                work.next = cur_l1
-                cur_l1 = cur_l1.next
-                #print(f"cur_l1.val <= cur_l2.val")
-            """   
-            print(f"Work: {work}")
-            print("---------------------------")
-            print(f"cur_l1: {cur_l1}")
-            print("---------------------------")
-            print(f"cur_l2: {cur_l2}")
-            print("----------------------------------------------------")
-            """ 
-            work = work.next
+        cur = res = ListNode()
+        while l1 and l2:
+            if l1.val < l2.val:
+                cur.next = l1
+                l1 = l1.next
+            else:
+                cur.next = l2
+                l2 = l2.next
+            cur = cur.next
+        cur.next = l1 or l2
+        #print("res: ", res.next)
+        return res.next
         
         """
         print(f"--- The End ---")

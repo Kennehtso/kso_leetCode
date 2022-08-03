@@ -1,21 +1,16 @@
 from typing import List
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-        r = 0
-        if prices == sorted(prices, reverse=True):
-            return 0
-        maxList = {}
-        for idx, p in enumerate(prices):
-            cur = p
-            ava_list = list(map(lambda x: x - cur, prices[idx+1 : len(prices)]))
-            v_max = 0 if len(ava_list) == 0 else max(ava_list)
-            if v_max > 0 and v_max not in maxList  :
-                maxList[v_max] = v_max
-            #arr = list(map(lambda x: x - cur, prices[idx+1 : len(prices)-1]))
-        r = max(maxList, key=maxList.get)
-        print(r)
-        return r
-    
+        if len(prices) == 0 : return 0
+        res, left, right = 0, 0, 1
+        while right < len(prices):
+            if prices[right] > prices[left]:
+                diff = prices[right] - prices[left]
+                res = res if res > diff else diff
+            else:
+                left = right
+            right += 1
+        return res
     def rev_maxProfit(self, prices: List[int]) -> int:
         maxV, p_SM = 0, prices[0]
         if len(prices) == 1 :

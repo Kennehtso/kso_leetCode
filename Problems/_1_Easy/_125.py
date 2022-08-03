@@ -1,6 +1,23 @@
 from typing import List
 class Solution:
     def isPalindrome(self, s: str) -> bool:
+        start, end = 0, len(s)-1
+        s = s.lower()
+        while start < end:
+            while start < end:
+                if  s[start].isalnum():
+                    break
+                start += 1
+            while start < end:
+                if s[end].isalnum():
+                    break
+                end -= 1
+            if s[start] != s[end]: return False
+            start += 1
+            end -= 1
+        return True
+
+    def isPalindrome2(self, s: str) -> bool:
         if s is '':
             return True
         abc = "".join(filter(str.isalnum, s)).lower()

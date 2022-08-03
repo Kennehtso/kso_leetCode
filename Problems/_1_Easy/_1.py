@@ -1,30 +1,13 @@
 from typing import List
 class Solution:
     def twoSum(self, nums: List[int], target: int) -> List[int]:
-        for idx, d in enumerate(nums, start=0):
-            d_st, idx_st = d, idx
-            d_nd = target-d_st
-            if d_nd == d_st:
-                nums_chk = nums.copy()
-                nums_chk.remove(d_st)
-                if d_nd in nums_chk :
-                    r = [idx_st, nums_chk.index(d_nd)+1 ]
-                    print(r)
-                    return r
-            elif d_nd != d_st and d_nd in nums:
-                r = [idx_st, nums.index(d_nd)]
-                print(r) 
-                return r
-            continue    
-        return []
-        """ # Most voted 
-        h = {}
-        for i, num in enumerate(nums):
-            n = target - num 
-            if n not in h:
-                h[num] = i
-            else:
-                return [h[n], i]  """
+        chk = {}
+        for idx, num in enumerate(nums):
+            diff = target - num
+            if diff in chk:
+                return [chk[diff], idx]
+            chk[num] = idx
+
 slt = Solution()
 """
 1. Two Sum

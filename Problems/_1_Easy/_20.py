@@ -1,6 +1,17 @@
 from typing import List
 class Solution:
     def isValid(self, s: str) -> bool:
+        if len(s) % 2 != 0:
+            return False
+        stk, mapper = [], {")":"(", "}":"{","]":"["}
+        for c in s:
+            if stk and c in mapper and mapper[c] == stk[-1] :
+                stk.pop()
+                continue
+            stk.append(c)
+        return not stk
+    """
+    def isValid(self, s: str) -> bool:
         r = True
         if s.count("{") != s.count("}") or s.count("[") != s.count("]") or s.count("(") != s.count(")") or len(s) == 1 :
             print(False)   
@@ -32,6 +43,7 @@ class Solution:
                     break
         print(r)       
         return r
+    """
 slt = Solution()
 # Test Case
 #slt.isValid("(){}}{")
