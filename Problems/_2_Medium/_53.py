@@ -6,37 +6,13 @@ Input: nums = [-2,1,-3,4,-1,2,1,-5,4]
 """
 class Solution:
     def maxSubArray(self, nums: List[int]) -> int:
-        n = len(nums)
-        curr_sum = max_sum = nums[0]
-
-        for i in range(1, n):
-            cur = nums[i]
-            roundTotal = curr_sum + cur
-            """
-            nums = [-2,1,-3,4,-1,2,1,-5,4]
-            Take 'cur' to compare with 'cur_sum' + 'cur'
-            ex: 
-                round 1: 
-                    1 or -2 +1 
-                round 2:
-                    -3 or 1 + (-3)
-                round 3:
-                    4 or -2 + (4)
-                .... this will ""Compare"" all the conbination of previous continues total
-                .... But need a var to keep the highest so far, 
-                .... due to the upper process may meet the lower value later in the loop.     
-            """    
-            # curr_sum = max(nums[i], curr_sum + nums[i])
-            if cur > roundTotal:
-                curr_sum = cur
-            else:
-                curr_sum = roundTotal
-            
-            #max_sum = max(max_sum, curr_sum)
-            max_sum = max_sum if curr_sum <= max_sum else curr_sum
-                
-            
-        return max_sum
+        maxSum, curSum = nums[0], 0
+        for n in nums:
+            if curSum < 0:
+                curSum = 0
+            curSum += n
+            maxSum = max(maxSum, curSum)
+        return maxSum
         
     def maxSubArray_Kadane(self, nums: List[int]) -> int:
         n = len(nums)
