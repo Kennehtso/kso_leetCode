@@ -1,5 +1,22 @@
 from typing import List
+from collections import deque
 class Solution:
+  
+    def floodFill(self, image: List[List[int]], sr: int, sc: int, newColor: int) -> List[List[int]]:
+        directions = [(0, 1), (1, 0), (0,-1), (-1,0)]
+        m, n, old = len(image), len(image[0]), image[sr][sc]
+        dq, chk = deque([(sr, sc)]), set()
+        while dq:
+            row, col = dq.popleft()
+            chk.add((row, col))
+            if image[row][col] != old: continue
+            image[row][col] = newColor
+            for dir_r, dir_l in directions:
+                n_r, n_l = row + dir_r, col + dir_l
+                if (n_r, n_l) not in chk and 0 <= n_r < m and 0 <= n_l < n :
+                    dq.append((n_r, n_l))
+        return image
+    """
     def floodFill(self, image: List[List[int]], sr: int, sc: int, newColor: int) -> List[List[int]]:
         self.image, self.newColor, self.targetColor, self.row_max, self.col_max, self.chkArr = image, newColor, image[sr][sc], len(image), len(image[0]), []
         print(self.image)
@@ -22,7 +39,7 @@ class Solution:
                 
         if n not in self.chkArr and self.image[n[0]][n[1]] != self.newColor and self.image[n[0]][n[1]] == self.targetColor and n[0] >=0 and n[0] < self.row_max and n[1] < self.col_max :
             self.updateColor(n[0], n[1])
-        
+    """ 
 slt = Solution()    
 # Test Case
 slt.floodFill([[0,0,0],[0,1,1]],1,1,1)

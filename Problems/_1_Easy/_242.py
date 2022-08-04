@@ -1,7 +1,16 @@
 from typing import List
 class Solution:
     def isAnagram(self, s: str, t: str) -> bool:
-        return sorted(s) == sorted(t)
+        def helper(s):
+            s = s.lower()
+            res = {}
+            for c in s:
+                if c in res:
+                    res[c] += 1
+                else:
+                    res[c] = 1
+            return res
+        return helper(s) == helper(t)
 slt = Solution()    
 # Test Case
 

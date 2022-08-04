@@ -1,17 +1,16 @@
 from typing import List
 class Solution:
     def search(self, nums: List[int], target: int) -> int:
-        start, end = 0, len(nums) - 1
-        ans = -1
-        while start <= end:
-            mid =  (start + end) // 2
+        start, end = 0, len(nums)-1
+        while start < end:
+            mid = (start + end) //2
             if nums[mid] == target:
                 return mid
-            elif nums[mid] < target:
-                start = mid + 1
+            elif nums[mid] > target:
+                end = mid -1
             else:
-                end = mid - 1
-        return ans
+                start = mid + 1
+        return -1
   
         
 # Your MyHashMap object will be instantiated and called as such:
