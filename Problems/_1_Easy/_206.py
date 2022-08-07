@@ -7,15 +7,15 @@ class ListNode:
 class Solution:
     def reverseList_iteratively(self, head: ListNode) -> ListNode:
         # iteratively 
-        pre = None
         cur = head
-        nxt = None
+        tmp = None
+        res = None
         while cur:
-            nxt =  cur._next
+            tmp =  cur._next
             cur._next = pre
             pre = cur
-            cur = nxt
-        return pre
+            cur = tmp
+        return res
        
     def reverseList_recursively(self, head: ListNode) -> ListNode: #iteratively 
         # recursively

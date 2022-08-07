@@ -7,21 +7,16 @@ from typing import List
 class Solution:
     firstBadVer = 0
     def isBadVersion(self, bad):
+        # mock logic
         return bad > self.firstBadVer
 
     def firstBadVersion(self, n, bad):
-        print(f"max: {n}, bad: {bad}")
-        self.firstBadVer = bad #This is the condition, cant compare it directly
-        left,right = 1,n
+        left, right = 0, n
         while left < right:
-            mid = left + (right-left)/2
-            if self.isBadVersion(mid):
-                right = mid
-            else:
-                left = mid +1
-            print(f"left: {left}, right: {right}")
-        print(int(left))
-        return int(left)
+            mid = (left + right) // 2
+            if not self.isBadVersion(mid): left = mid + 1
+            else: right = mid
+        return right
         
             
 slt = Solution()

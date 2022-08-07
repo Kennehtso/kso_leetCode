@@ -2,21 +2,33 @@ from typing import List
 import math
 class Solution:
     def climbStairs(self, n: int) -> int:
-        """ if n == 1: return 1
-        elif n == 2: return 2
-        r, a, b = 0, 1, 2
-        for i in range(3, n+1):
-            r = a + b
-            a = b
-            b = r
-        """
-        sqrt5 = math.sqrt(5)
-        fibn = pow((1+sqrt5)/2, n+1) - pow((1-sqrt5)/2, n+1)
-        r = (int)(fibn/sqrt5)
-        print(r) 
-        return r
+        st, nd = 1, 1
+        for idx in range(n):
+            st, nd = (st+nd), st
+        return nd
 slt = Solution()
-slt.climbStairs(127642)
+"""
+n = 1 
+    a : a + b = (1 + 1) = 2
+    b : pre_a = 1 = ans
+n = 2 
+    a : a + b = (2 + 1) = 3
+    b : pre_a = 2 = ans
+n = 3 
+    a : a + b = (3 + 2) = 5
+    b : pre_a = 3 = ans
+n = 4 
+    a : a + b = (5 + 3) = 8
+    b : pre_a = 5 = ans
+n = 5 
+    a : a + b = (8 + 5) = 13
+    b : pre_a = 8 = ans
+n = 6 
+    a : a + b = (13 + 8) = 21
+    b : pre_a = 13 = ans
+    
+"""
+slt.climbStairs(45)
 """
 70. Climbing Stairs
 
@@ -38,41 +50,6 @@ Example 2:
     2. 1 step + 2 steps
     3. 2 steps + 1 step
  
-5
-1,1,1,1,1
-5-2=3-2=1
-1,1 -> 1
-2,2 -> 1,1, 2
-3,3 ->-3 1,1,1, 1,2, 2,1 
-4,5 ->-3 1,1,1,1 1,1,2, 1,2,1, 2,1,1, 2,2 
-5,8  +1
-6,13 -2
-7,21 
--> 0,
- 4 -> 1, +2 * 2+0
-5 ->3, +4 2 *3 +1
-6 -> 7,+7 2 * 
-7 -> 14, +12
-8 -> 26
-    1,1,1,1,1 ,0 of 2, 5^0 = 1
-    1,1,1,2,  = 4
-    1,2,2 = 3
-
-6
-1,1,1,1,1,1  = 1
-1,1,1,1,2 = 5
-1,1,2,2 = 6
-2,2,2 = 1
-
-
-
-1122
-1221
-2211
-2121
-1212
-2112
-
 Constraints:
     1 <= n <= 45
 """
