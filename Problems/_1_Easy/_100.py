@@ -7,33 +7,15 @@ class TreeNode:
         self.right = right
 
 class Solution:
-    ans = True
     def isSameTree(self, p: TreeNode, q: TreeNode) -> bool:
-        self.compareVal(p, q)
-        print(True)
-        return self.ans
-    
-    def compareVal(self, p: TreeNode, q: TreeNode):
-        if self.ans is True:
-            val_p = p.val if p is not None else None
-            val_q = q.val if q is not None else None
-            """
-            print(f"-----compare--------")
-            print(f"p: {val_p}")
-            print(f"q: {val_q}")
-            print(f"-------------------")
-            """
-            
-            if val_p != val_q:
-                print(f"val_p != val_q: {val_p} != {val_q}")
-                self.ans = False
-            elif p or q:
-                p_l = p.left if p and p.left else None
-                p_r = p.right if p and p.right else None
-                q_l = q.left if q and q.left else None
-                q_r = q.right if q and q.right else None
-                self.compareVal(p_l, q_l)
-                self.compareVal(p_r, q_r)
+        if not p and not q: 
+            return True
+        elif (not p and q ) or (not q and p):
+            return False
+        if p.val == q.val and self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right):
+            return True
+        else:
+            return False
 
 slt = Solution()    
 _5 = TreeNode(3,None,None)

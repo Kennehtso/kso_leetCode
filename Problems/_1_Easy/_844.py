@@ -1,11 +1,16 @@
 from typing import List
 class Solution:
-    def backspaceCompare(self, S: str, T: str) -> bool:
-        while S.count("#") > 0:
-            S = S[0:S.index("#") if S.index("#")-1 < 0 else S.index("#")-1] + S[S.index("#")+1::]
-        while T.count("#") > 0:
-            T = T[0:T.index("#") if T.index("#")-1 < 0 else T.index("#")-1] + T[T.index("#")+1::]
-        return S == T
+    def backspaceCompare(self, s: str, t: str) -> bool:
+        stk_s, stk_t = [], []
+        def helper(s, arr):
+            for c in s:
+                if c is not "#":
+                    arr.append(c)
+                elif arr:
+                    arr.pop()
+        helper(s, stk_s)
+        helper(t, stk_t)
+        return stk_s == stk_t
 
 slt = Solution()    
 # Test Case

@@ -6,6 +6,24 @@ class TreeNode:
         self.right = right
 
 class Solution:
+    def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:
+        l_max, r_max = 0, 0
+        def helper(root):
+            if not root: return 0
+            nonlocal l_max
+            nonlocal r_max
+            l_cur = helper(root.left)
+            r_cur = helper(root.right)
+            t_cur = l_cur + r_cur
+            if t_cur > l_max + r_max:
+                #print("cur root set max:", root)
+                l_max = l_cur
+                r_max = r_cur
+            return max(l_cur, r_cur) + 1
+        helper(root)
+        #print("l_max, r_max = %s, %s"%(l_max, r_max))
+        return l_max + r_max
+    """
     r = 0
     def diameterOfBinaryTree(self, root: TreeNode) -> int:
         def gogo(root: TreeNode, locateMsg):
@@ -23,7 +41,7 @@ class Solution:
         gogo(root,"ROOT")
         #print(f"self.r: {self.r-1}")
         return self.r - 1 if self.r > 0 else 0
-
+    """
 slt = Solution()
 # Test Case
 #result = slt.longestCommonPrefix(["dog","racecar","car"])

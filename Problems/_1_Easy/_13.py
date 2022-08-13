@@ -1,41 +1,12 @@
 from typing import List
 class Solution:
-    def romanToInt(self, input_roman: str) -> int:
-        values = {
-            "I": 1,
-            "V": 5,
-            "X": 10,
-            "L": 50,
-            "C": 100,
-            "D": 500,
-            "M": 1000,
-        }
-        # M M C M L X X I X 
-        total = 0
-        position = 0
-        s_len = len(input_roman)
-        while position < s_len:
-            # If this is the subtractive case.
-            current_value = values [ input_roman[position] ]
-            next_value = values [ input_roman[position + 1] ]
-            if  current_value < next_value :
-                total = total + ( next_value - current_value)
-                position  = position + 2
-            # Else this is NOT the subtractive case.
-            else:
-                total = total + current_value
-                position = position + 1
-        return total
-
-    def rev_romanToInt(self, s: str) -> int:
+    def romanToInt(self, s: str) -> int:
+        pre, res = 0, 0
         d = {"I":1,"V":5,"X":10,"L":50,"C":100,"D":500,"M":1000}
-        if len(s) == 1:return d[s]
-        r = pre = d[s[-1]]
-        for idx in range(len(s)-2,-1,-1):
-            cur = d[s[idx]]
-            r += cur * (1 if cur >= pre else -1) 
-            pre = cur
-        return r
+        for idx in range(len(s)-1, -1, -1):
+            res += d[s[idx]] * (1 if d[s[idx]] >= pre else -1)
+            pre = d[s[idx]]
+        return res
 
 slt = Solution()
 slt.rev_romanToInt("MMCMLXXIX")

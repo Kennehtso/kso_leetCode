@@ -1,0 +1,65 @@
+import heapq
+h = []
+heapq.heappush(h, (1, 'ASH'))
+heapq.heappush(h, (5, 'ENTERTAINMENT'))
+heapq.heappush(h, (2, 'TEDDY'))
+heapq.heappush(h, (3, 'BUDDHA'))
+heapq.heappush(h, (4, 'FAMILY'))
+heapq.heappush(h, (2, 'HEALTH'))
+heapq.heappush(h, (1, 'CAREER'))
+heapq.heappush(h, (5, 'WEALTH'))
+print(h)
+print(heapq.heappop(h))
+print(h)
+print(heapq.heappop(h))
+print(h)
+"""
+                        1, ASH
+        3, BUDDHA                   1, CAREER
+    5, ENT..    4, FAMILY       2, TEDDY     2,HEALTH
+5. WEALTH
+
+"""
+def heap_top_3(arr: list[int]) -> list:
+    # WRITE YOUR BRILLIANT CODE HERE
+    res = []
+    print("arr: %s"%(arr))
+    heapq.heapify(arr)
+    print("After heapify arr: %s"%(arr))
+    for idx in range(3):
+        sm = heapq.heappop(arr)
+        print("arr: %s"%(arr))
+        res.append(arr[1])
+    return res
+
+def Merge_K_Sorted_Lists(sortedList: list[list[int]]):
+    hq, res = [], []
+    for list in sortedList:
+        heapq.heappush(hq, (list[0], list ,0))
+    print("hq: ", hq)
+    while hq:
+        val, current_list, head_index = heapq.heappop(hq)
+        res.append(val)
+        head_index += 1
+        
+        # if there are more numbers in the list, push into the heap
+        if head_index < len(current_list):
+            heapq.heappush(hq, (current_list[head_index], current_list, head_index))
+            print("head_index < len(current_list): ", hq)
+        print("hq: ", hq)
+        print("res: ", res)
+        print("---------------")
+    return res
+
+data = "3 1 2 10 33 100 20"
+arr = [int(x) for x in data.split()]
+res = heap_top_3(arr)
+print(res)
+
+data2 = [
+    [1 ,3 ,5],
+    [2 ,4 ,6],
+    [7 ,10]
+]
+res = Merge_K_Sorted_Lists(data2)
+print(res)
