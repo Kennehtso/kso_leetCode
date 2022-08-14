@@ -1,29 +1,18 @@
+from re import X
 from typing import List
 class Solution:
     def isPalindrome(self, x: int) -> bool:
-        max = pow(2,31)
-        return False if x < 0 or max-1 < x or x < (-1 * max) else x == int(str(x)[::-1])
-       
-        """ NO STRING
-        max = pow(2,31)
-        if x < 0 or max < x or x < (-1 * max) : 
-            print(False)
-            return False
-        elif x == 0 : 
-            print(True)
-            return True
-        stamp = 10
-        l, rl =[], []
-        quotient, remain = x, x
-        times = 1
-        while quotient > 0:
-            remain = quotient % stamp
-            quotient = quotient // stamp
-            l.append(remain)
-            rl.insert(0,remain)
-        print(l == rl)
-        return l == rl
-        """
+        val, rev, stk = x, 0, []
+        while val > 0:
+            stk.append(val % 10)
+            val = val // 10
+        #print(stk)
+        level = 1
+        while stk:
+            rev += (stk.pop() * level)
+            level *= 10
+        #print("%s vs %s = "%(rev, x))
+        return rev == X
 """
 datetime : 09/06/2020 15:47
 Follow up: Could you solve it without converting the integer to a string?

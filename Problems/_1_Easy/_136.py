@@ -3,9 +3,7 @@ from  collections import Counter
 class Solution:
     def singleNumber(self, nums: List[int]) -> int:
         c = Counter(nums)
-        f = list(filter(lambda e: c[e] == 1, c))[0]
-        print(f)
-        return f
+        return min(c, key=c.get)     
 
 slt = Solution()
 # Test Case

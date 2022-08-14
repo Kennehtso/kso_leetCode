@@ -4,16 +4,11 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        nums.sort(key=lambda e: e==0)
-        """
-        c = nums.count(0)
-        while c > 0:
-            i = nums.index(0)
-            nums.pop(i)
-            nums.append(0)
-            c-=1
-        #print(f"nums: {nums}")
-        """
+        slow = 0
+        for fast in range(len(nums)):
+            if nums[fast] != 0:
+                nums[fast], nums[slow] = nums[slow], nums[fast]
+                slow += 1
         
 slt = Solution()
 # Test Case

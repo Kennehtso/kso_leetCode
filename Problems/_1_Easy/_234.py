@@ -7,11 +7,27 @@ class ListNode:
         
 class Solution:
     def isPalindrome(self, head: ListNode) -> bool:
-        checkList = []
-        while head:
-            checkList.append(head.val)
-            head = head.next
-        return checkList == checkList[::-1]
+        slow = fast = head
+        rev = None
+        while fast and fast.next:
+            fast = fast.next.next
+            # Not just move slow forward
+            # record the other half
+            tmp = rev
+            rev = slow
+            slow = slow.next
+            rev.next = tmp
+        #print(rev)  # reverse from the first half
+        # load remain part check if same as "rev"
+        if fast: slow = slow.next # this one is to force len of odd numbers linklist to start from mid + 1
+        #print(slow) # remain part
+        #print(fast) # fast is end
+        # Check remain part
+        while rev and rev.val == slow.val:
+            # IF NOT SAME, RETURN False
+            rev = rev.next
+            slow = slow.next
+        return not slow # if remain run to None means is empty, else which means that sth remain
             
         
 #1 , (2, (3, (4, (5, (4, (3, (2, (1, None))))))))

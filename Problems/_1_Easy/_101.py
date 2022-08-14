@@ -7,31 +7,26 @@ class TreeNode:
         self.right = right
 
 class Solution:
-    ans = True
-    def isSymmetric(self, root: TreeNode) -> bool:
-        self.compareVal(root.left, root.right)
-        print(self.ans)
-        return self.ans
-    
-    def compareVal(self, left: TreeNode, right: TreeNode):
-        if self.ans is True:
-            val_l = left.val if left is not None else None
-            val_r = right.val if right is not None else None
-            
-            print(f"-----compare--------")
-            print(f"left: {val_l}")
-            print(f"right: {val_r}")
-            print(f"-------------------")
-            
-            if val_l != val_r:
-                self.ans = False
-            elif left or right:
-                l_l = left.left if left and left.left else None
-                l_r = left.right if left and left.right else None
-                r_l = right.left if right and right.left else None
-                r_r = right.right if right and right.right else None
-                self.compareVal(l_l, r_r)
-                self.compareVal(r_l, l_r)
+    def isSymmetric(self, root: TreeNode) -> bool:      
+        def check(_left, _right):
+            if not _left and not _right: 
+                return True
+            if  _left and not _right or not _left and _right: 
+                return False
+            # Only switch left side
+            _left.left, _left.right = _left.right, _left.left
+            return check(_left.left, _right.left) and check(_left.right, _right.right) and _left.val == _right.val
+        return check(root.left, root.right)
+        """
+                     1
+            2               3
+        4       5       6       7
+
+
+                     1
+            2               3
+        5       4       6       7
+        """
             
 slt = Solution()
 #True
