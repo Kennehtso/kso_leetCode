@@ -1,7 +1,20 @@
+from collections import deque
 from typing import List
 class Solution:
     def sortedSquares(self, nums: List[int]) -> List[int]:
-        return sorted(map(lambda x: pow(x,2), nums))
+        # - * - = + >>> <<< + * + = + 
+        start, end = 0, len(nums) - 1
+        dq = deque([])
+        while start <= end:
+            left = nums[start] * nums[start]
+            right = nums[end] * nums[end]
+            if left >= right:
+                dq.appendleft(left)
+                start += 1
+            else:
+                dq.appendleft(right)
+                end -=1
+        return dq
 
 slt = Solution()    
 # Test Case

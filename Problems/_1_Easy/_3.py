@@ -1,23 +1,15 @@
 from typing import List
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
-        if not s: return 0
-        fifo, mx = [], 0
-        print(f"s: {s}")
-        for _s in s:  
-            if _s in fifo:
-                if len(fifo) > mx:
-                    mx = len(fifo) 
-                del fifo[0:fifo.index(_s)+1]
-            fifo.append(_s)
-            print(f"fifo: {fifo}")
-            print(f"mx: {mx}")
-            print("-------")
-
-        if len(fifo) > mx:
-            mx = len(fifo) 
-        return mx
-
+        ans, d = 0, ''
+        for c in s:
+            if c not in d:
+                d += c
+                continue
+            if ans < len(d): ans = len(d)
+            d = d[d.index(c)+1:] + c
+        return len(d) if ans < len(d) else ans
+    
 slt = Solution()    
 # Test Case
 slt.lengthOfLongestSubstring("")

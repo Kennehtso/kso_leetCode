@@ -63,3 +63,13 @@ data2 = [
 ]
 res = Merge_K_Sorted_Lists(data2)
 print(res)
+
+#set with triples
+a = (1,-1,0)
+b = (-1,1,0)
+c = (0,-1,1)
+s = set()
+s.add(set(a))
+s.add(set(b))
+s.add(set(c))
+print("set for triples: %s"%(s))

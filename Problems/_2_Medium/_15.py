@@ -1,31 +1,33 @@
 from typing import List
 class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
-        if len(nums) < 3: return []
-        r = []
-        S = sorted(nums)
-        #print(S)
-        for idx in range(0, len(nums)-2):
-            if idx == 0 or (idx > 0 and S[idx] != S[idx-1]): 
-                lo = idx + 1
-                hi = len(S)-1
-                while lo < hi:
-                    _sum = S[idx] + S[lo] + S[hi]
-                    if _sum == 0:
-                        r.append([S[idx], S[lo] ,S[hi]])
-                        #print("a, low, high: " ,S[idx], S[lo] ,S[hi])
-                        while lo < hi and S[lo+1] == S[lo] : lo+=1 ### KEY lo < hi go first prevent out of range
-                        while lo < hi and S[hi-1] == S[hi] : hi-=1 ### KEY  
-                        #lo += 1
-                        hi -= 1
-                        #print("lo+=1 : ", lo)
-                        #print("hi+=1 : ", hi)
-                    elif _sum > 0:  hi -= 1 ### KEY S[idx] + S[lo] + S[hi] > 0
-                    else : lo += 1  ### KEY S[idx] + S[lo] + S[hi] < 0
-                        
-        print(r)
-        return r
+        nums.sort()
+        res = []
+        for st in range(len(nums)):
+            if st > 0 and nums[st] == nums[st-1]: continue
+            #1. Try always 0 to len(nums) X Fail, will have duplicate, not worth to handle it with more time
+            #2. Try idx+1 to end, much better solution especially is sorted already, no need to care for the left side
+            nd, rd = st+1, len(nums)-1
+            while nd < rd:
+                #print("nd, rd: ",nd, rd)
+                addUp = nums[st] + nums[nd] + nums[rd]
+                if addUp > 0 : rd -= 1
+                elif addUp < 0 : nd += 1
+                else:
+                    #print("st, nd rd = %s, %s, %s:"%(st, nd, rd))
+                    res.append([nums[st], nums[nd], nums[rd]])
+                    nd += 1
+                    while  nums[nd] == nums[nd-1] and nd < rd:
+                        nd += 1
+        #print("res: ",res)
+        return res
+        
+        # Thoughts:
+        # st + nd + rd = 0
+        # -5 -5 -3 -1 0 2 3 4 4 4 5
+        # -5 -3 -1 0 2 3 4 5
 
+         
 slt = Solution()    
 # Test Case
 slt.threeSum(nums = [-1,0,1,2,-1,-4])

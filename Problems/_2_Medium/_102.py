@@ -7,15 +7,16 @@ class TreeNode:
 
 class Solution:
     def levelOrder(self, root: TreeNode) -> List[List[int]]:
-        r = []
-        def bfs(rt: TreeNode, lv):
-            if not rt: return []
-            r.append([rt.val]) if lv > len(r) else r[lv-1].append(rt.val)
-            bfs(rt.left, lv + 1)
-            bfs(rt.right, lv + 1)
-        bfs(root,1)
-        print(r)
-        return r
+        from collections import deque
+        if not root: return []
+        dq, res = deque([(root, 1)]), []
+        while dq:
+            r, lv = dq.popleft()
+            if not r: continue
+            res.append([r.val]) if lv > len(res) else res[lv-1].append(r.val)
+            dq.append((r.left, lv+1))
+            dq.append((r.right, lv+1))
+        return res
 
 slt = Solution() 
 # Test Case
