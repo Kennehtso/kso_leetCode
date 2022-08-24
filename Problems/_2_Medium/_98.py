@@ -7,12 +7,21 @@ class TreeNode:
         
 class Solution:
     def isValidBST(self, root: TreeNode) -> bool:
-        return True
-
+        def dfs(root, left_v, right_v):
+            # Base
+            if not root: 
+                return True
+            # Normal
+            elif not(left_v < root.val < right_v): 
+                return False
+            # dfs
+            return dfs(root.left, left_v, root.val) and dfs(root.right, root.val, right_v)
+        return dfs(root,float("-inf"), float("inf"))
 
 slt = Solution()    
 # Test Case
-slt.longestPalindrome(s = "")
+bst = TreeNode(8, TreeNode(5, TreeNode(2, None, TreeNode(3)),TreeNode(6)),TreeNode(10,None,TreeNode(14)))
+slt.isValidBST(bst)
 
 """
 Given the root of a binary tree, determine if it is a valid binary search tree (BST).
