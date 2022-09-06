@@ -1,0 +1,306 @@
+import re
+def showResult(case, pattern, topic, matches, showByGroup=False):
+    print("-"*100)
+    print("Test Case : %s"%(case))
+    print("Test pattern : %s"%(pattern))
+    print(topic)
+    print("*"*30)
+    try:
+        if type(matches) not in {list, str, tuple}:
+            for match in matches: 
+                if not showByGroup:
+                    print(match)
+                else:
+                    print(match.group())
+                    print(match.groups())
+        else:
+            print(matches)
+    except TypeError as te:
+        print(matches)
+    print("*"*30)
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+print("1. re module")
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+case = "123abc456abc123ABC"
+pattern = r"abc"
+
+matches1 = re.finditer(pattern, case)
+showResult(case, pattern, "statement 1 ", matches1)
+
+# matches2 = re.finditer(r"123", case)
+# showResult("statement 2 ", matches2)
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+print("\n","2. Methods to Search")
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+# Only return the match if it's at the first in the beginning
+result_match = re.match(pattern, case)
+showResult(case, pattern, "2.1 - match()", result_match)
+
+# Search the first match 
+result_search = re.search(pattern, case)
+showResult(case, pattern, "2.2 - search()", result_search)
+
+# Match Object method
+showResult(case, pattern, "2.2.1 - group() # Get the string", result_search.group())
+showResult(case, pattern, "2.2.2 - start()", result_search.start())
+showResult(case, pattern, "2.2.3 - end()", result_search.end())
+showResult(case, pattern, "2.2.4 - span()", result_search.span())
+
+# Find all the matches target return as list
+result_findall = re.findall(pattern, case)
+showResult(case, pattern, "2.3 - findall()", result_findall)
+
+# finditer return a iterative Match Object that include all targets with it's index start, end
+result_finditer = re.finditer(pattern, case)
+showResult(case, pattern, "2.4 - finditer()", result_finditer)
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+print("\n","3. meta characters")
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+# . ^ $ * + ? { } [ ] \ | ( )
+"""
+. look for any character
+^ starts with '^hello'
+$ ends with 'world$ '
++, *, {} occurrences purpose **check further**
+[] set of characters **check further**
+| conditions, either or 'cat|dog' **check further**
+() capture and group **check further**
+\ Special Sequence (or escape special characters '\d')
+"""
+case = "http://www.google.com"
+pattern = r"."
+result_finditer = re.finditer(pattern, case)
+desc = "3.1 - meta data of . \n look for any character"
+showResult(case, pattern, desc, result_finditer)
+
+pattern = r"\."
+result_finditer = re.finditer(pattern, case)
+desc = "3.2 - meta data of \ \n escape special characters '\.'"
+showResult(case, pattern, desc, result_finditer)
+
+pattern = r"^http"
+result_finditer = re.finditer(pattern, case)
+desc = "3.3 - meta data of ^ \n string starts with '^http'"
+showResult(case, pattern, desc, result_finditer)
+
+pattern = r"com$"
+result_finditer = re.finditer(pattern, case)
+desc = "3.4 - meta data of$^ \n string ends with 'com$'"
+showResult(case, pattern, desc, result_finditer)
+
+patterns ={
+    "d" : r"Matches any decimal digit; this is equivalent to the class [0-9].",
+    "D" : r"Matches any non-digit character; this is equivalent to the class [^0-9].",
+    "s" : r"Matches any whitespace character; this is equivalent to the class [ \t\n\r\f\v].",
+    "S" : r"Matches any non-whitespace character; this is equivalent to the class [^ \t\n\r\f\v].",
+    "w" : r"Matches any alphanumeric character; this is equivalent to the class [a-zA-Z0-9_].",
+    "W" : r"Matches any non-alphanumeric character; this is equivalent to the class [^a-zA-Z0-9_]."
+}
+"""
+1. the Capital Special character is the opposite meaning of the smaller case character
+    - \s : match all whitespace character
+    - \S : match all non-whitespace character
+"""
+case = "Hello 123_hey heyyo baby loverhey.com"
+cnt = 1
+for pattern in patterns:
+    details = patterns[pattern]
+    pattern = r"\%s"%(pattern)
+    result_finditer = re.finditer(pattern, case)
+    if pattern  in {"\b","\B"}: 
+        pattern += "hey"
+    desc = "3.5.%s - meta data of %s \n %s"%(str(cnt), pattern, details)
+    showResult(case, pattern, desc, result_finditer)
+    cnt += 1
+
+"""
+    "b" : r"Matches any blocks start by target str",
+    "B" : r"Matches any blocks end by target str"
+"""
+case = "Hello 123_hey heyyo baby loverhey.com"
+pattern = r"\bhey"
+result_finditer = re.finditer(pattern, case)
+desc = "3.5.%s - meta data of %s \n %s"%(str(cnt), pattern, r"Matches any blocks follow by target str")
+showResult(case, pattern, desc, result_finditer)
+cnt += 1
+pattern = r"\Bhey"
+result_finditer = re.finditer(pattern, case)
+desc = "3.5.%s - meta data of %s \n %s"%(str(cnt), pattern, r"Matches any blocks NOT follow by target str")
+showResult(case, pattern, desc, result_finditer)
+cnt += 1
+
+case = """
+01.04.2020
+02-06-2021
+08-08-2021
+08/09/2022
+02.04.2020
+01-9-2022
+04.04.2020
+03/04/2022
+03.04.2020
+02-06-2021
+01/8/2022
+05-06-2021
+01/05/2022
+09-06-2021
+10-06-2021
+05.04.2020
+03/12/2022
+06.04.2020
+"""
+seperators = ['.','-','/','[/-]']
+for sep in seperators:
+    pattern = r"\d\d"+sep+r"\d\d"+sep+r"\d\d\d\d"
+    result_finditer = re.finditer(pattern, case)
+    desc = "3.5.%s - meta data of %s \n %s"%(str(cnt), pattern, "Only dates with %s as seperator"%(sep))
+    showResult(case, pattern, desc, result_finditer)
+    cnt += 1
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+print("\n",r"4. Set [] and Quantifier {}")
+cnt = 1
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+pattern = r"\d\d[/-]0[389][/-]\d\d\d\d"
+result_finditer = re.finditer(pattern, case)
+desc = "4.%s - meta data of %s"%(str(cnt), pattern)
+showResult(case, pattern, desc, result_finditer)
+cnt += 1
+
+pattern = r"\d{2}[/-]0?[7-9][/-]\d{4}"
+result_finditer = re.finditer(pattern, case)
+desc = "4.%s - meta data of %s"%(str(cnt), pattern)
+showResult(case, pattern, desc, result_finditer)
+cnt += 1
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+print("\n",r"5. Conditions")
+cnt = 1
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+case = """
+01.04.2020
+02-06-2021
+Mr. Kenneth So
+04.04.2020
+34 56
+This is good
+03.04.2020
+Mr Teddy Ma
+01/8/2022
+Mrs. Krane So
+09-06-2021
+10-06-2021
+78 90
+Ms. Michael
+Ms Kelly
+whyisthat.happening@fat.com.hk
+03/12/2022
+06.04.2020
+ABC@Gmail.com
+them-quite@hotmail.com
+them-quite@8989.com
+"""
+pattern = r"(Mr|Mrs|Ms)\.?\s[a-zA-Z]+"
+result_finditer = re.finditer(pattern, case)
+desc = "5.%s - meta data of %s"%(str(cnt), pattern)
+showResult(case, pattern, desc, result_finditer)
+cnt += 1
+
+pattern = r"[a-zA-Z0-9\-\.]+@[a-zA-Z-]+\.[a-zA-Z]+"
+result_finditer = re.finditer(pattern, case)
+desc = "5.%s - meta data of %s"%(str(cnt), pattern)
+showResult(case, pattern, desc, result_finditer)
+cnt += 1
+
+# With custom Group by wrapping with ( )
+pattern = r"([a-zA-Z0-9\-\.]+)@([a-zA-Z-]+)\.([a-zA-Z]+)"
+result_finditer = re.finditer(pattern, case)
+desc = "5.%s - meta data of %s"%(str(cnt), pattern)
+showResult(case, pattern, desc, result_finditer, True)
+cnt += 1
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+print("\n",r"6. Modifications")
+cnt = 1
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+case = "123abc456abc123ABC"
+
+pattern = r"abc"
+result_finditer = re.split(pattern, case)
+desc = "6.%s - Split target by meta data of %s"%(str(cnt), pattern)
+showResult(case, pattern, desc, result_finditer)
+cnt += 1
+
+pattern = r"abc"
+swapBy = r"---"
+result_finditer = re.sub(pattern, swapBy, case)
+desc = "6.%s - Sub target by meta data of %s"%(str(cnt), pattern)
+showResult(case, pattern, desc, result_finditer)
+cnt += 1
+
+case = """
+@@12345
+http://www.yahoo.com.hk
+https://google.com
+http://python.org
+http://python.testing-site.org
+hello world
+123456 abc // 123
+Mr. Kenneth
+"""
+
+# The website with group
+pattern = r"https?://(w{3}\.)?([a-zA-Z]+).([a-zA-Z\.\-]+)"
+result_finditer = re.finditer(pattern, case)
+desc = "6.%s - Group meta data of %s"%(str(cnt), pattern)
+showResult(case, pattern, desc, result_finditer, True)
+cnt += 1
+
+# Replace http:// or https:// to empty
+result_finditer = re.sub(pattern, "",case)
+desc = "6.%s - Sub (replace) meta data of %s"%(str(cnt), pattern)
+showResult(case, pattern, desc, result_finditer, True)
+cnt += 1
+
+# Displaying by group-index concation 
+pattern = r"https?://(w{3}\.)?([a-zA-Z]+).([a-zA-Z\.\-]+)"
+result_finditer = re.sub(pattern, r"\2\3", case)
+desc = "6.%s - Sub (display with concation) meta data of %s"%(str(cnt), pattern)
+showResult(case, pattern, desc, result_finditer, True)
+cnt += 1
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+print("\n",r"7. Compilation Flags")
+"""
+(?aiLmsux) | Here, a, i, L, m, s, u, and x are flags:
+    a — Matches ASCII only
+    i — Ignore case
+    L — Locale dependent
+    m — Multi-line
+    s — Matches all
+    u — Matches unicode
+    x — Verbose
+"""
+cnt = 1
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+case = "123abc456abc123ABC"
+pattern = "abc"
+result_finditer = re.finditer(pattern, case, flags=re.I|re.X)
+desc = "7.%s -  meta data of %s"%(str(cnt), pattern)
+showResult(case, pattern, desc, result_finditer)
+cnt += 1
+
+## Exercise
+# 1. test if the str start and end with same letter
+cases = ['abcba', 'abcbA', 'abcbb', '3bcb3']
+for case in cases:
+    pattern = r"^\w"
+    startChar = re.search(pattern, case)
+    pattern = r"\w$"
+    endChar = re.search(pattern, case)
+    res = startChar.group() == endChar.group()
+    print("start:%s == end:%s => %s"%(startChar.group(),endChar.group(),res))
